@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+
+
+{% block title %}
+    Абонименты
+{% endblock title %}
+
+{% block content %}
+    <h1>Список клиентов с указанием тарифов и дат</h1>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th>Клиент</th>
+                <th>Тариф</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sub in subs %}
+                <tr>
+                    <td>{{ sub.client }}</td>
+                    <td>{{ sub.plan }}</td>
+                    <td>{{ sub.date_start|date:"d.m.Y" }}</td>
+                    <td>{{ sub.date_end|date:"d.m.Y" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

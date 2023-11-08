@@ -31,7 +31,7 @@ class Client(models.Model):
     birth_date = models.DateField(db_index=True, verbose_name="Дата рождения")
 
     def __str__(self):
-        return f"{self.last_name} {self.name}"
+        return f"{self.last_name} {self.first_name} {self.patronymic}"
 
     class Meta:
         verbose_name_plural = 'Клиенты'
@@ -47,9 +47,15 @@ class PlanProgram(models.Model):
     class Meta:
         verbose_name_plural = 'Составы тарифов'
         verbose_name = 'Состав тарифа'
+        unique_together = ['plan', 'program']
 
 class Subscription(models.Model):
     client = models.ForeignKey("Client", on_delete=models.CASCADE, verbose_name="Клиент")
     plan = models.ForeignKey("Plan", on_delete=models.DO_NOTHING, verbose_name="Тариф")
     date_start = models.DateField(verbose_name="Дата начала")
     date_end = models.DateField(verbose_name="Дата окончания")
+
+    class Meta:
+        verbose_name_plural = 'Абонименты'
+        verbose_name = 'Абонимент'
+        unique_together = ['plan', 'client']

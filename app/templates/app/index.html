@@ -1,14 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness club</title>
-    {% load bootstrap5 %}
-    {% bootstrap_javascript %}
-    {% bootstrap_css %}
-</head>
-<body>
-    xaxaxa
-</body>
-</html>
+{% extends 'app/base.html' %}
+
+
+{% block title %}
+    Состав тарифов
+{% endblock title %}
+
+{% block content %}
+    <h1>Список тарифов с указанием программ</h1>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Тариф</th>
+                <th>Программа</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in programs_in_plan.items %}
+                <tr>
+                    <td rowspan="{{ value.count }}">{{ key }}</td>
+                    <td>{{ value.programs.pop }} </td>
+                </tr>
+                {% for p in value.programs %}
+                    <tr><td>{{ p }}</td></tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
